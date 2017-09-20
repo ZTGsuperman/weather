@@ -1,0 +1,318 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,user-scalable=no" />
+     <link href="css/main.css" rel="stylesheet" />
+     <title></title>
+    <script src="js/m.Tween.js"></script>
+    <script>
+        (function () {
+            setRem()
+            window.addEventListener("orientation" in window ? "deviceorientation" : "resize", setRem);
+            function setRem() {
+                var html = document.documentElement;
+                var htmlW = html.getBoundingClientRect().width;
+                html.style.fontSize = htmlW / 12 + 'px';
+            }
+        })()
+
+        document.addEventListener('touchstart', function (ev) {
+            ev.preventDefault();
+        })
+    </script>
+    <script src="js/myScroll.js"></script>
+    <script src="js/tool.js"></script>
+    <script src="js/main.js"></script>
+</head>
+<body>
+
+     <div class="load">
+         <h5>还在加载呐···</h5>
+         <div class="prog">
+             <span class="clip"></span>
+             <h4 class="num"></h4>
+         </div>
+     </div>
+
+    <div id="wrap">
+        <div class="move">
+            <div class="page pageOne">
+                <div class="one_inner">
+                    <header>
+                        <strong class="nowCity"></strong>
+                        <div class="add" id="oneBtn">
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </header>
+                    <div class="main_tem">
+                        <h2 class="now_tem">28</h2>
+                        <p>
+                            <i><img  alt="pic" class="nowW_ico" /></i>
+                            <em class="state"></em>
+                            <em class="range_tem"></em>
+                        </p>
+                    </div>
+                    <div class="forecast">
+                        <div class="hourly clear">
+                            <p class="title"><em>预报</em><span>今天<em class="today">星期日</em></span></p>
+                            <div class="hourly_inner">
+                                <ol class="flexW">
+                                    <!--
+                                      <li> <h4>00:00</h4>
+                                        <img src="images/ico.png" alt="pic" />
+                                        <em>27</em>
+                                    </li>
+                                    <li><h4>00:00</h4>
+                                        <img src="images/ico.png" alt="pic" />
+                                        <em>27</em>
+                                    </li>
+                                   
+                                 -->
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div class="daily">
+                            
+                            <ol class="flexW">
+                                  <!--  <li>
+                                        <span class="week">星期一</span>
+                                        <div class="ico_tem clear">
+                                            <img src="images/ico.png" alt="pic" />
+                                            <p class="max_min">
+                                                <em>32</em>
+                                                <em>26</em>
+                                            </p>
+                                        </div>
+                                        <h4>多云</h4>
+                                </li> 
+                                <li class="clear">
+                                    <span class="week">星期一</span>
+                                    <div class="ico_tem clear">
+                                        <img src="images/ico.png" alt="pic" />
+                                        <p class="max_min">
+                                            <em>32</em>
+                                            <em>26</em>
+                                        </p>
+                                    </div>
+                                    <h4>多云</h4>
+                                </li>
+                                
+                               -->
+                            </ol>
+                        </div>
+
+                        <div class="detail">
+                            <p class="title"><em>详细信息</em></p>
+                            <div class="detail_inner clear">
+                                <img src="images/ico.png" alt="pic"  class="detail_ico"/>
+                                <ul>
+                                    <li>
+                                        <span>今日预报</span>
+                                        <span class="predict">中雨转下雨</span>
+                                    </li>
+                                    <li>
+                                        <span>体感温度</span>
+                                        <span class="b_tmp">20</span>
+                                    </li>
+                                    <li>
+                                        <span>空气湿度</span>
+                                        <span class="humidity">96</span>
+                                    </li>
+                                    <li>
+                                        <span>风向风力</span>
+                                        <span class="direction">西北风5级</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="air_qlt">
+                            <p class="title"><span>空气质量</span><span><em class="grade">优</em> .<em class="air_index">19</em></span></p>
+                            <a class="ring"></a>
+                            <ol class="flexW rect">
+                                <li>优</li>
+                                <li>良</li>
+                                <li>轻度</li>
+                                <li>中度</li>
+                                <li>重度</li>
+                                <li>严重</li>
+                            </ol>
+                            <ol class="flexW range">
+                                <li>0</li>
+                                <li>50</li>
+                                <li>100</li>
+                                <li>150</li>
+                                <li>200</li>
+                                <li>300</li>
+                                <li>500</li>
+                            </ol>
+
+                            <ol class="flexW pollute">
+                                <li>
+                                    <p><strong>PM2.5</strong><em>入肺颗粒物</em></p>
+                                    <h4 class="PM_two">10</h4>
+                                </li>
+                                <li>
+                                    <p><strong>PM10</strong><em>可吸入颗粒物</em></p>
+                                    <h4 class="PM_ten">10</h4>
+                                </li>
+                                <li>
+                                    <p><strong>SO2</strong><em>二氧化硫</em></p>
+                                    <h4 class="SO">2</h4>
+                                </li>
+                                <li>
+                                    <p><strong>NO2</strong><em>二氧化碳</em></p>
+                                    <h4 class="NO">10</h4>
+                                </li>
+                                <li>
+                                    <p><strong>O3</strong><em>臭氧</em></p>
+                                    <h4 class="o_three">10</h4>
+                                </li>
+                                <li>
+                                    <p><strong>CO</strong><em>一氧化碳</em></p>
+                                    <h4 class="CO">10</h4>
+                                </li>
+                            </ol>
+
+                        </div>
+
+                        <div class="life_index">
+                            <p class="title"><em>空气质量</em></p>
+                            <ul>
+                                <li>
+                                    <div class="life_text">
+                                        <p><h3 class="clothes">热舒适</h3><em class="c_text">建议穿短套装，T恤夏季服装</em></p>
+                                        <span>[穿衣指数]</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="life_text">
+                                        <p><h3 class="cold">易发</h3><em class="co_text">建议穿短套装，T恤夏季服装</em></p>
+                                        <span>[感冒指数]</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="life_text">
+                                        <p><h3 class="light">弱</h3><em class="l_text">建议穿短套装，T恤夏季服装</em></p>
+                                        <span>[紫外线]</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="life_text">
+                                        <p><h3 class="sport">热舒适</h3><em class="s_text">建议穿短套装，T恤夏季服装</em></p>
+                                        <span>[运动指数]</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="life_text">
+                                        <p><h3 class="car">热舒适</h3><em class="car_text">建议穿短套装，T恤夏季服装</em></p>
+                                        <span>[洗车指数]</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page pageTwo">
+                <header>
+                    <span id="goBack"><</span>
+                    <h4>城市管理</h4>
+                    <div class="add" id="twoBtn">
+                        <span></span>
+                        <span></span>
+                    </div>
+                </header>
+               
+                <!--搜索过的列表-->
+                <div class="search_list">
+                    <div class="position">
+                        <em>自动定位</em>
+                        <div class="position_btn">
+                            <i class="dot"></i>
+                            <span class="open"></span>
+                            <span class="close"></span>
+                        </div>
+                    </div>
+                    <ul class="searched">
+                       <!--
+                           <li>
+                            <p>
+                                <h4>遵义</h4>
+                                <img src="images/ico.png" alt="pic" />
+                            </p>
+                            <span>26</span>
+                        </li>
+                       --> 
+                    </ul>
+                </div>
+
+                <!--遮罩-->
+                <div class="shade"></div>
+                <!--长按是否删除-->
+                <footer class="delete">
+                      <p>城市</p>
+                      <p class="delete_btn"><img src="images/delete.png" alt="图片"/>
+                         <span>删除</span>
+                      </p>
+                </footer>
+            </div>
+
+            <div class="page pageThree">
+                <header>
+                    <label>
+                        <i class="search_ico"><img src="images/shou_ico.png" alt="pic" /></i>
+                        <i class="clearTxt"><img src="images/clearTxt.png" alt="pic" /></i>
+                        <input type="text" value="城市名称中文/拼音" id="search" />
+                    </label>
+                    <p class="cancel">取消</p>
+                </header>
+
+                <div class="hot_city">
+                    <p class="title"><em>热门城市</em></p>
+                    <div class="city_list">
+                        <a href="#">北京</a>
+                        <a href="#">上海</a>
+                        <a href="#">广州</a>
+                        <a href="#">深圳</a>
+                        <a href="#">天津</a>
+                        <a href="#">杭州</a>
+                        <a href="#">东莞</a>
+                        <a href="#">宁波</a>
+                        <a href="#">西安</a>
+                        <a href="#">成都</a>
+                        <a href="#">重庆</a>
+                        <a href="#">南京</a>
+                        <a href="#">苏州</a>
+                        <a href="#">武汉</a>
+                        <a href="#">厦门</a>
+                        <a href="#">福州</a>
+                        <a href="#">昆明</a>
+                        <a href="#">沈阳</a>
+                        <a href="#">长春</a>
+                        <a href="#">大连</a>
+                        <a href="#">济南</a>
+                        <a href="#">青岛</a>
+                        <a href="#">郑州</a>
+                        <a href="#">兰州</a>
+                        <a href="#">太原</a>
+                        <a href="#">合肥</a>
+                        <a href="#">哈尔滨</a>
+                        <a href="#">长沙</a>
+                    </div>
+                </div>
+                <ul class="isExist">
+                </ul>
+
+            </div>
+        </div>
+       
+    </div>
+   
+</body>
+</html>
