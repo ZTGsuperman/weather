@@ -159,24 +159,30 @@ mv.app.pageTwo = function () {
     var hPosition = false;
    pBtn.addEventListener('touchstart', function () {
        //单击切换按钮
-      if (!isOpen) {
-          moveDot.style.left = (btnW - moveDot.offsetWidth) - left + 'px';
-          open.style.left = 0 + 'px';
-          close.style.left = close.offsetWidth + 'px';
-          isOpen = true;
-          hPosition = true;
-          mv.app.getPosition();   //定位
-        }else{
-          moveDot.style.left = left + 'px';
-          open.style.left = -open.offsetWidth + 'px';
-          close.style.left = 0 + 'px';
-          isOpen = false;
-          //移除定位的li
-          if (hPosition) {                          //已定位了的才删除
-              searched.removeChild(pLi[0]);
-              hPosition = false;
-          }
-        }
+      
+       var isSucss = false;
+           if (!isOpen) {
+                isSucss = mv.app.getPosition();   //定位
+               if (isSucss) {
+                   moveDot.style.left = (btnW - moveDot.offsetWidth) - left + 'px';
+                   open.style.left = 0 + 'px';
+                   close.style.left = close.offsetWidth + 'px';
+                   isOpen = true;
+                   hPosition = true;
+               }
+         
+           } else {
+              moveDot.style.left = left + 'px';
+              open.style.left = -open.offsetWidth + 'px';
+              close.style.left = 0 + 'px';
+              isOpen = false;
+              //移除定位的li
+              if (hPosition) {                          //已定位了的才删除
+                  searched.removeChild(pLi[0]);
+                  hPosition = false;
+              }
+           }
+       
     })
     
 
@@ -986,6 +992,7 @@ mv.tool.myScroll = function (init) {
 }
 
 mv.app.getPosition = function () {
+    
     //获取经纬度
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(sussFn, filedFn);
@@ -999,7 +1006,7 @@ mv.app.getPosition = function () {
         var oScript = document.createElement('script')
         oScript.src = 'http://api.map.baidu.com/geocoder/v2/?callback=getCity&location='+x+','+y+'&output=json&pois=1&ak=oy486863FupMPGarwgzWXcyfslICpqrM '
         document.body.appendChild(oScript);
-
+        isSucss = true;
     }
    
 
@@ -1007,14 +1014,17 @@ mv.app.getPosition = function () {
         switch (error.code) {
             case error.PERMISSION_DENIED:
             case error.POSITION_UNAVAILABLE:
-                alert('无法获取当前位置')
+
+                alert('无法获取当前位置');
                 break;
             case error.TIMEOUT:
                 alert('操作超时')
                 break;
         }
+        isSucss = true;
     }
 
+    return true;
 }
 
 //定位跨域请求成功后的回调
