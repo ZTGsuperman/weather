@@ -37,6 +37,8 @@ window.onload = function () {
             css(move, 'opacity', 100);
             mv.app.pageOne();
         }
+
+        mv.app.getPosition();
 }
   
 
@@ -162,7 +164,7 @@ mv.app.pageTwo = function () {
       
        var isSucss = false;
            if (!isOpen) {
-                isSucss = mv.app.getPosition();   //定位
+               // isSucss = mv.app.getPosition();   //定位
                if (isSucss) {
                    moveDot.style.left = (btnW - moveDot.offsetWidth) - left + 'px';
                    open.style.left = 0 + 'px';
@@ -871,134 +873,6 @@ mv.tool.myScroll = function (init) {
     });
 
 
-
-
-/*    var swiper = init.el.children[0];
-    var dir = init.dir;
-
-    var isFrist = true;
-    var startPoint = {};
-    var lastPoint = {};
-    var startEl = {};
-    var timeDis = 0;
-    var lastTime = 0;
-    var dis = {}
-    var max = {
-        x: parseInt(css(init.el, 'width') - css(swiper, 'width')),
-        y: parseInt(css(init.el, 'height') - css(swiper, 'height'))-20
-    }
-
-    var translate = {
-        x:"translateX",
-        y:"translateY",
-    }
-    var isMove = {
-        x: "false",
-        y:"false",
-    }
-    css(swiper,translate[dir],0)
-    init.el.addEventListener("touchstart", function (e) {
-        init.start && init.start();
-        var touch = e.changedTouches[0];
-        lastTime = new Date().getTime();
-        startPoint = {
-            x: Math.round(touch.pageX),
-            y: Math.round(touch.pageY),
-        }
-        lastPoint = {
-            x: startPoint.x,
-            y: startPoint.y,
-        }
-        startEl = {
-            x: css(swiper, 'translateX'),
-            y: css(swiper, 'translateY')
-        }
-        timeDis = dis = 0;
-    })
-
-    init.el.addEventListener("touchmove", function (e) {
-        var touch = e.changedTouches[0];
-            var nowPoint = {
-                x: Math.round(touch.pageX),
-                y: Math.round(touch.pageY),
-            }
-
-            if (nowPoint.x == lastPoint.x && nowPoint.y == lastPoint.y) { return;}
-             
-             dis = {
-                x: nowPoint.x - startPoint.x,
-                y: nowPoint.y - startPoint.y,
-            }
-            if (Math.abs(dis.x)-Math.abs(dis.y)>2&&isFrist) {
-                isMove.x = true;
-                isMove.y = false;
-               
-            } else if (Math.abs(dis.y) - Math.abs(dis.x) > 2 && isFrist) {
-                isMove.x = false;
-                isMove.y = true;
-            }
-           
-            var nowTime = new Date().getTime();
-            timeDis = nowTime - lastTime;
-            var target = {}
-            target[dir] = dis[dir] + startEl[dir];
-            isMove[dir] && css(swiper, translate[dir], target[dir]);
-            init.move && init.move();
-            lastPoint = {
-                x: nowPoint.x,
-                y: nowPoint.y,
-            }
-            lastTime = nowTime;
-    })
-
-    init.el.addEventListener("touchend", function (e) {
-
-        if (lastPoint.x == startPoint.x && lastPoint.y == startPoint.y) {
-            return;
-        }
-
-        var speed = Math.round(dis[dir] / timeDis * 20);
-        speed = timeDis <= 0 ? 0 : speed;
-        var target = Math.round(css(swiper, translate[dir]) + speed)
-
-        console.log(target)
-
-        if (target < max[dir]) {
-            target = max[dir];
-        } else if (target > 0) {
-            target = 0; 
-            }
-        
-        //因为translate[dir]为字符串，用MTween不行
-       if (translate[dir] == 'translateY') {
-                MTween({
-                    el: swiper,
-                    target: { translateY: target },
-                    time: Math.round(Math.abs(target - css(swiper, "translateY")) * 2),
-                    type: "easeOut"
-                })
-            }
-
-            if (translate[dir] == 'translateX') {
-                MTween({
-                    el: swiper,
-                    target: { translateX: target },
-                    time: Math.round(Math.abs(target - css(swiper, "translateX")) * 2),
-                    type: "easeOut"
-                })
-            }
-
-            isMove = {
-                x: false,
-                y:false,
-            }
-            isFrist = true;
-            init.end && init.end();
-    })
-
-    */
-
-
 }
 
 mv.app.getPosition = function () {
@@ -1037,7 +911,7 @@ mv.app.getPosition = function () {
         isSucss = false;
     }
 
-    return isSucss;
+  //  return isSucss;
 }
 
 //定位跨域请求成功后的回调
