@@ -38,7 +38,6 @@ window.onload = function () {
             mv.app.pageOne();
         }
 
-        mv.app.getPosition();
 }
   
 
@@ -164,7 +163,7 @@ mv.app.pageTwo = function () {
       
        var isSucss = false;
            if (!isOpen) {
-               // isSucss = mv.app.getPosition();   //定位
+                isSucss = mv.app.getPosition();   //定位
                if (isSucss) {
                    moveDot.style.left = (btnW - moveDot.offsetWidth) - left + 'px';
                    open.style.left = 0 + 'px';
@@ -888,8 +887,7 @@ mv.app.getPosition = function () {
     function sussFn(position) {
         var x = position.coords.latitude;
         var y = position.coords.longitude;
-
-        alert(x+','+y)
+        
         var oScript = document.createElement('script')
         oScript.src = 'http://api.map.baidu.com/geocoder/v2/?callback=getCity&location='+x+','+y+'&output=json&pois=1&ak=oy486863FupMPGarwgzWXcyfslICpqrM '
         document.body.appendChild(oScript);
@@ -911,7 +909,7 @@ mv.app.getPosition = function () {
         isSucss = false;
     }
 
-  //  return isSucss;
+    return isSucss;
 }
 
 //定位跨域请求成功后的回调

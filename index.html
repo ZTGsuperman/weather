@@ -23,23 +23,6 @@
         })
 
 
-        //获取经纬度
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(sussFn, filedFn);
-        } else {
-            alert("对不起，您的浏览器不支持html5定位");
-        }
-
-        function sussFn() {
-            var x = position.coords.latitude;
-            var y = position.coords.longitude;
-            alert(x + ',' + y);
-        }
-
-        function filedFn() {
-            alert('失败')
-        }
-
     </script>
     <script src="js/myScroll.js"></script>
     <script src="js/tool.js"></script>
