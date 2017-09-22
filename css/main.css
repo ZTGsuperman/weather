@@ -131,6 +131,7 @@ body {
   opacity: 0;
   filter: alpha(opacity=0);
   transition: 1.5s;
+  -webkit-transform: transition3d(0, 0, 0);
 }
 .page {
   width: 12rem;
@@ -641,6 +642,7 @@ body {
   bottom: -4.4rem;
   z-index: 4;
   transition: 0.3s;
+  -webkit-transform: transition3d(0, 0, 0);
 }
 .pageTwo .delete p {
   width: 100%;

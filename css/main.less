@@ -38,6 +38,7 @@ body{height:100%;margin:0;position:relative;
 
 #wrap{position:relative;width:100%;height:100%;overflow:hidden;transform-style:preserve-3d;perspective:800/@r}
 .move{position:absolute;height:100%;transform:translateZ(200/@r);opacity:0;filter:alpha(opacity=0);transition:1.5s;
+      -webkit-transform:transition3d(0,0,0)
 }
 
 .page{width:12rem;height:100%;position:absolute;}
@@ -48,7 +49,7 @@ body{height:100%;margin:0;position:relative;
 .pageOne header{width:100%;height:78/@r;text-align:center;margin-top:60/@r;}
 .pageOne header strong{color:#fff;font-size:48/@r;font-weight:normal}
  .add {width:36/@r;height:36/@r;float:right;position:relative;margin:20/@r 36/@r 0 0}
- .add span{background:#fff;position:absolute;box-shadow:0 2/@r #7994a5}
+ .add span{background:#fff;position:absolute;box-shadow:0 2/@r #7994a5;}
  .add span:nth-of-type(1){width:34/@r;height:4/@r;top:50%;left:0;margin-top:-2/@r;}
  .add span:nth-of-type(2){height:34/@r;width:4/@r;left:50%;top:0;margin-left:-2/@r;}
 
@@ -196,7 +197,7 @@ body{height:100%;margin:0;position:relative;
 .pageTwo .search_list li span{float:right;font-size:28/@r;margin-right:34/@r ;}
 
 
-.pageTwo .delete{ width:100%;position:absolute;left:0;bottom:-264/@r;z-index:4;transition:0.3s;}
+.pageTwo .delete{ width:100%;position:absolute;left:0;bottom:-264/@r;z-index:4;transition:0.3s;-webkit-transform:transition3d(0,0,0)}
 .pageTwo .delete p{width:100%;text-align:center;color:#2e302f}
 .pageTwo .delete p:nth-of-type(1){height:90/@r;border-bottom:2/@r solid #c3c5c4;background:#d6d8d7;
                                   font-size:28/@r;line-height:90/@r;}
