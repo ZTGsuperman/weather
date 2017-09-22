@@ -206,6 +206,12 @@ mv.app.pageTwo = function () {
     searched.addEventListener('touchmove', function (ev) {
              var ev = ev || window.event;
              var target = ev.srcElement || ev.target;
+
+             var li = searched.children;
+             for (var i = 0; i < li.length; i++) {
+                 li[i].index = i;
+             }
+
              var date = new Date();
              time2 = date.getTime();
             timeDis = time2 - time1;
@@ -214,7 +220,6 @@ mv.app.pageTwo = function () {
                 oDelete.style.bottom = 0;
                 shade.style.display = 'block';
                 isFrist = true;
-                daleteFn(target)
             } else {
                 isDelete = false;
             }
@@ -232,18 +237,22 @@ mv.app.pageTwo = function () {
                 mv.app.addData(date.HeWeather5[0])
                 mv.app.changeX(0)
             })
-           }
+        } else {
+            daleteFn(target.index)
+          }
         })
 
       function daleteFn(target) {
+          var li = searched.children;
           shade.addEventListener('touchend', function () {
               oDelete.style.bottom = -oDelete.offsetHeight+'px';
               shade.style.display = 'none';
           })
           deBtn.addEventListener('touchend', function () {
-              searched.removeChild(target);
+              searched.removeChild(li[target]);
               oDelete.style.bottom = -oDelete.offsetHeight + 'px';
               shade.style.display = 'none';
+
           })
       }
 
@@ -701,6 +710,7 @@ mv.app.pageTwoLi=function(cityName,isPosition) {
 
             if (off) {
                 var li = document.createElement('li');
+                //li.index=;
                 var oP = document.createElement('p');
                 var h4 = document.createElement('h4');
                 var span = document.createElement('span');
@@ -995,14 +1005,17 @@ mv.app.getPosition = function () {
     
     //获取经纬度
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(sussFn, filedFn);
+        navigator.geolocation.getCurrentPosition(sussFn,filedFn);
+    } else {
+        alert("对不起，您的浏览器不支持html5定位");
     }
-
+    var isSucss = false;
     //定位请求成功后执行
     function sussFn(position) {
         var x = position.coords.latitude;
         var y = position.coords.longitude;
 
+        alert(x+','+y)
         var oScript = document.createElement('script')
         oScript.src = 'http://api.map.baidu.com/geocoder/v2/?callback=getCity&location='+x+','+y+'&output=json&pois=1&ak=oy486863FupMPGarwgzWXcyfslICpqrM '
         document.body.appendChild(oScript);
@@ -1021,10 +1034,10 @@ mv.app.getPosition = function () {
                 alert('操作超时')
                 break;
         }
-        isSucss = true;
+        isSucss = false;
     }
 
-    return true;
+    return isSucss;
 }
 
 //定位跨域请求成功后的回调
