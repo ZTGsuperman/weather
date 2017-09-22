@@ -161,16 +161,14 @@ mv.app.pageTwo = function () {
    pBtn.addEventListener('touchstart', function () {
        //单击切换按钮
       
-       var isSucss = false;
            if (!isOpen) {
-                isSucss = mv.app.getPosition();   //定位
-               if (isSucss) {
+                    mv.app.getPosition();   //定位
                    moveDot.style.left = (btnW - moveDot.offsetWidth) - left + 'px';
                    open.style.left = 0 + 'px';
                    close.style.left = close.offsetWidth + 'px';
                    isOpen = true;
                    hPosition = true;
-               }
+              
          
            } else {
               moveDot.style.left = left + 'px';
@@ -909,7 +907,6 @@ mv.app.getPosition = function () {
         isSucss = false;
     }
 
-    return isSucss;
 }
 
 //定位跨域请求成功后的回调
