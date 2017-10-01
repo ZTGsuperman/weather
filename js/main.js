@@ -190,42 +190,40 @@ mv.app.pageTwo = function () {
     var oDelete = pageTwo.querySelector('.delete');
     var deBtn = oDelete.querySelector('.delete_btn');
     var isDelete = false;
-    var isFrist = true;
-    var time1 =0;
-    var time2 =0;
-    var timeDis = 0;
-    searched.addEventListener('touchstart', function () {
-        var date = new Date();
-        timeDis = 0;
-        if (isFrist) {
-            time1 = date.getTime();
-            isFrist = false;
+    
+    var timer = null;
+    searched.addEventListener('touchstart', function (ev) {
+        var target = ev.srcElement || ev.target;
+
+        var li = searched.children;
+        for (var i = 0; i < li.length; i++) {
+            li[i].index = i;
         }
+        var num = 0;
+        if (target.nodeName.toLowerCase() === 'li') {
+            timer = setInterval(function () {
+                num+=100;
+                if (num > 1000) {
+                    clearInterval(timer);
+                    isDelete = true;
+                    oDelete.style.bottom = 0;
+                    shade.style.display = 'block';
+                } else {
+                    isDelete = false;
+                }
+            }, 100)
+        } else {
+            return;
+        }
+        
     })
     searched.addEventListener('touchmove', function (ev) {
-             var ev = ev || window.event;
-             var target = ev.srcElement || ev.target;
-
-             var li = searched.children;
-             for (var i = 0; i < li.length; i++) {
-                 li[i].index = i;
-             }
-
-             var date = new Date();
-             time2 = date.getTime();
-            timeDis = time2 - time1;
-            if (timeDis >= 700) {
-                isDelete = true;
-                oDelete.style.bottom = 0;
-                shade.style.display = 'block';
-                isFrist = true;
-            } else {
-                isDelete = false;
-            }
-        })
+            clearInterval(timer)
+          })
         
       searched.addEventListener('touchend', function (ev) {
-        var ev = ev || window.event;
+          var ev = ev || window.event;
+          clearInterval(timer)
         var target = ev.srcElement || ev.target;
         if (target.nodeName.toLowerCase() === 'li' && (!isDelete)) {
             var text = target.getElementsByTagName('p')[0].getElementsByTagName('h4')[0].innerHTML;
