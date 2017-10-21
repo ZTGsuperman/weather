@@ -748,16 +748,20 @@ mv.app.pageTwoLi=function(cityName,isPosition) {
 
 
 mv.tool.myScroll = function (init) {
-
     var swiper = init.el.children[0];
     var startPoint = {};
     var startEl = {};
     var lastPoint = {};
     var dir = init.dir;
+    var lastTime = 0;
+    var disTime = 0;
+    var last = {};
+    var lastDis = 0;
     var max = {
-        x: parseInt(css(init.el,"width") - css(swiper,"width")),
-        y: parseInt(css(init.el,"height") - css(swiper,"height"))
+        x: parseInt(css(init.el, "width") - css(swiper, "width")),
+        y: parseInt(css(init.el, "height") - css(swiper, "height"))
     };
+
     var translate = {
         x: "translateX",
         y: "translateY"
@@ -769,104 +773,101 @@ mv.tool.myScroll = function (init) {
 
     var offset = {
         x: 'offsetWidth',
-        y:'offsetHeight',
+        y: 'offsetHeight',
     }
     var isFrist = true;//记录这是第一次滑动 
 
-    // css(swiper,"translateX",0);
-    // css(swiper,"translateY",0);
-    css(swiper,translate[dir],0);
-    init.el.addEventListener('touchstart', function(e) {
-        init.start&&init.start();
+    css(swiper, translate[dir], 0);
+    init.el.addEventListener('touchstart', function (e) {
+        init.start && init.start();
         var touch = e.changedTouches[0]
+        lastTime = new Date().getTime();
 
+        clearInterval(swiper.timer);
         startPoint = {
             x: Math.round(touch.pageX),
             y: Math.round(touch.pageY)
         };
-        lastPoint= {
+        lastPoint = {
             x: startPoint.x,
             y: startPoint.y
         };
         startEl = {
-            x: css(swiper,"translateX"),
-            y: css(swiper,"translateY")
+            x: css(swiper, "translateX"),
+            y: css(swiper, "translateY")
         };
+        last[dir] = startEl[dir];
 
-        max = {
-            x: parseInt(css(init.el,"width") - css(swiper,"width")),
-            y: parseInt(css(init.el,"height") - css(swiper,"height"))
-        }      
+        disTime = lastDis = 0;
+
     });
+    css(swiper, "translateZ", 0.01);
     init.el.addEventListener('touchmove', function (e) {
-        init.move && init.move();
         var touch = e.changedTouches[0];
+        nowTime = new Date().getTime();
+        disTime = nowTime - lastTime;
         var nowPoint = {
             x: Math.round(touch.pageX),
             y: Math.round(touch.pageY)
         }
-        if(lastPoint.x == nowPoint.x && lastPoint.y == nowPoint.y){
-            return;
+        max = {
+            x: parseInt(css(init.el, "width") - css(swiper, "width")),
+            y: parseInt(css(init.el, "height") - css(swiper, "height"))
         }
         var dis = {
             x: nowPoint.x - startPoint.x,
             y: nowPoint.y - startPoint.y
         }
         /* 这个判断只在我手指按下时，第一次move时才会执行 */
-        if(Math.abs(dis.x) - Math.abs(dis.y) > 2 && isFrist){
+        if (Math.abs(dis.x) - Math.abs(dis.y) > 2 && isFrist) {
             isMove.x = true;
             isFrist = false;
-        } else if(Math.abs(dis.y) - Math.abs(dis.x) > 2 && isFrist){
+        } else if (Math.abs(dis.y) - Math.abs(dis.x) > 2 && isFrist) {
             isMove.y = true;
             isFrist = false;
         }
-        var target = {};
-        target[dir] = dis[dir] + startEl[dir];
-        isMove[dir]&&css(swiper,translate[dir],target[dir]);
+        var target = {
+            x: dis.x + startEl.x,
+            y: dis.y + startEl.y,
+        };
+
+        lastDis = target[dir] - last[dir];
+        isMove[dir] && css(swiper, translate[dir], target[dir]);
         lastPoint.x = nowPoint.x;
         lastPoint.y = nowPoint.y;
+        init.move && init.move(target);
+        lastTime = nowTime;
+        last[dir] = target[dir]
     });
-    init.el.addEventListener('touchend', function (e) {
 
+    init.el.addEventListener('touchend', function (e) {
         if (lastPoint.x == startPoint.x && lastPoint.y == startPoint.y) {
             return;
         }
 
-        //若子元素小于父级，则返回
-        if (dir === 'x') {
-            if (swiper.offsetWidth < init.el.offsetWidth) {
-                init.end && init.end();
-                return;
-            }
-        } else if (dir === 'y') {
-            if (swiper.offsetHeight < init.el.offsetHeight) {
-                init.end && init.end();
-                return;
-            }
-        }
+        var speed = Math.round(lastDis / disTime * 10);
+        speed = disTime <= 0 ? 0 : speed;
 
-        var now = css(swiper, translate[dir]);
-        if(now < max[dir]){
-            now =  max[dir];
-        } else if(now > 0){
+        var now = css(swiper, translate[dir]) + speed * 30;
+        if (now < max[dir]) {
+            now = max[dir];
+        } else if (now > 0) {
             now = 0;
         }
-        var target = {};
-        target[translate[dir]] = now;
-      
+
         MTween({
             el: swiper,
-            target:target,
+            target: { translateY: now },
             type: "easeOut",
-            time: 300
+            time: Math.abs(Math.round(now - css(swiper, translate[dir])) * 2)
         });
         isMove = {
             x: false,
             y: false
         }
         isFrist = true;
+        init.end && init.end();
     });
-
 
 }
 
