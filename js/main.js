@@ -848,6 +848,7 @@ mv.tool.myScroll = function (init) {
         var speed = Math.round(lastDis / disTime * 10);
         speed = disTime <= 0 ? 0 : speed;
 
+       
         var now = css(swiper, translate[dir]) + speed * 30;
         if (now < max[dir]) {
             now = max[dir];
@@ -855,9 +856,10 @@ mv.tool.myScroll = function (init) {
             now = 0;
         }
 
+        var target = (dir === 'x') ? { translateX: now } : { translateY: now };
         MTween({
             el: swiper,
-            target: { translateY: now },
+            target: target,
             type: "easeOut",
             time: Math.abs(Math.round(now - css(swiper, translate[dir])) * 2)
         });
