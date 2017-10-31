@@ -10,8 +10,10 @@ window.onload = function () {
     var pageW = page[0].offsetWidth;
 
     css(move, "width", pageL * pageW);
+    css(move, "translateZ",0.1);
     for (var i = 0; i < pageL; i++) {
-        page[i].style.left = i * pageW + 'px';
+        page[i].style.transform = 'translateX(' + i * pageW + 'px)';
+        page[i].style.webkitTransform = 'translateX(' + i * pageW + 'px)';
     }
 
 
@@ -665,8 +667,8 @@ mv.app.changeX = function (num) {
     var pageL = page.length
     var pageW = page[0].offsetWidth;
 
-    move.style.left = -num * pageW + 'px';
-
+    move.style.transform = 'translateX(' + -num * pageW + 'px)';
+    move.style.webkitTransform = 'translateX(' + -num * pageW + 'px)';
 }
 
 mv.app.removeChild = function () {
